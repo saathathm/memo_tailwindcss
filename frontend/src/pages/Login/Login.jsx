@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { validateEmail } from "../../utils/helper";
+import { login } from "../../actions/userActions";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,6 +26,17 @@ const Login = () => {
     setError("");
 
     //Login API
+    const result = login(email, password);
+    console.log(result);
+
+    if (result.data && result.data.accessToken) {
+      localStorage.setItem("token", result.data.accessToken);
+      navigate("/dashboard");
+    }
+
+    if (result.response.data.message) {
+      setError(result.response.data.message);
+    }
   };
 
   return (
