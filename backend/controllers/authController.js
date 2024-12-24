@@ -87,6 +87,7 @@ export const login = async (req, res, next) => {
       error: false,
       message: "Login Successful",
       email,
+      fullName: userInfo.fullName,
       accessToken,
     });
   } catch (error) {

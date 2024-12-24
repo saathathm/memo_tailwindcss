@@ -5,14 +5,14 @@ import NoteCard from "../../components/Cards/NoteCard";
 import { MdAdd } from "react-icons/md";
 import AddEditNotes from "./AddEditNotes";
 import Modal from "react-modal";
-import { clearGetUser, getUser } from "../../actions/userActions";
-import { useNavigate } from "react-router-dom";
+import { getNotes } from "../../actions/NoteActions";
+
+import Loader from "../../components/Layout/Loader.jsx";
 
 const Home = () => {
+  const { user } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { user, isAuthenticated } = useSelector((state) => state.authState);
+  const { loading, notes } = useSelector((state) => state.noteState);
 
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -21,33 +21,34 @@ const Home = () => {
   });
 
   useEffect(() => {
-    dispatch(getUser);
-
-    if (!isAuthenticated) {
-      localStorage.clear();
-      dispatch(clearGetUser);
-      navigate("/login");
-    }
-  }, [dispatch, isAuthenticated, navigate]);
-
+    dispatch(getNotes);
+  }, [dispatch, getNotes]);
   return (
     <>
       <Navbar userInfo={user} />
 
-      <div className="container mx-auto">
-        <div className="grid grid-cols-3 gap-4 mt-8">
-          <NoteCard
-            title={"Meeting on 7th April"}
-            date={"3rd Apr 2024"}
-            content={"Meeting on 7th April Meeting on 7th April"}
-            tags={"#Meeting"}
-            isPinned={true}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            onPinNote={() => {}}
-          />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="container mx-auto">
+          <div className="grid grid-cols-3 gap-4 mt-8">
+            {notes &&
+              notes.map((note) => (
+                <NoteCard
+                  key={note._id}
+                  title={note.title}
+                  date={note.createdAt}
+                  content={note.content}
+                  tags={note.tags}
+                  isPinned={note.isPinned}
+                  onEdit={() => {}}
+                  onDelete={() => {}}
+                  onPinNote={() => {}}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <button
         className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10"

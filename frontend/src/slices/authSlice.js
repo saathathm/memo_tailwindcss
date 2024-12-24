@@ -5,6 +5,7 @@ const authSlice = createSlice({
   initialState: {
     loading: false,
     isAuthenticated: false,
+    notAllow: true,
   },
 
   reducers: {
@@ -60,20 +61,20 @@ const authSlice = createSlice({
         loading: true,
       };
     },
-
     getUserSuccess(state, action) {
       return {
         loading: false,
         isAuthenticated: true,
+        notAllow: false,
         user: action.payload,
       };
     },
-
     getUserFail(state, action) {
       return {
         ...state,
+        notAllow: false,
         loading: false,
-        isAuthenticated: false,
+        errorLoadUser: action.payload,
       };
     },
     clearGetUser(state, action) {

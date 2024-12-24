@@ -21,7 +21,7 @@ router.put("/note/update/:noteId", authenticateToken, updateNote);
 router.put("/note/update_ispinned/:noteId", authenticateToken, updateIsPinned);
 
 // Get all note
-router.get("/note/", authenticateToken, getAllNotes);
+router.get("/", authenticateToken, getAllNotes);
 
 // Get all note
 router.get("/note/get/:noteId", authenticateToken, getNoteById);
