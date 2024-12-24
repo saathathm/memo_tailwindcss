@@ -1,20 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import NoteCard from "../../components/Cards/NoteCard";
 import { MdAdd } from "react-icons/md";
 import AddEditNotes from "./AddEditNotes";
 import Modal from "react-modal";
+import { clearGetUser, getUser } from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, isAuthenticated } = useSelector((state) => state.authState);
+
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
     type: "add",
     data: null,
   });
 
+  useEffect(() => {
+    dispatch(getUser);
+
+    if (!isAuthenticated) {
+      localStorage.clear();
+      dispatch(clearGetUser);
+      navigate("/login");
+    }
+  }, [dispatch, isAuthenticated, navigate]);
+
   return (
     <>
-      <Navbar />
+      <Navbar userInfo={user} />
 
       <div className="container mx-auto">
         <div className="grid grid-cols-3 gap-4 mt-8">

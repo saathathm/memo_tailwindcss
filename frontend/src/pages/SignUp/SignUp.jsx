@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { validateEmail } from "../../utils/helper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions/userActions";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const {
+    user,
+    isAuthenticated,
+    error: authError,
+  } = useSelector((state) => state.authState);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -27,8 +37,19 @@ const SignUp = () => {
     }
     setError("");
 
-    //SignUp API
+    dispatch(register(name, email, password));
   };
+
+  useEffect(() => {
+    if (authError) {
+      setError(authError);
+    }
+
+    if (isAuthenticated) {
+      localStorage.setItem("token", user.accessToken);
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate, authError]);
   return (
     <>
       <Navbar />

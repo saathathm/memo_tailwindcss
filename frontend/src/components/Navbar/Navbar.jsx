@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import ProfileInfo from "../Cards/ProfileInfo";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import { useDispatch } from "react-redux";
+import { clearGetUser } from "../../actions/userActions";
 
-const Navbar = () => {
+const Navbar = ({ userInfo }) => {
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const onLogout = () => {
+    dispatch(clearGetUser);
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -30,7 +35,7 @@ const Navbar = () => {
         handleSearch={handleSearch}
       />
 
-      <ProfileInfo onLogout={onLogout} />
+      <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
     </div>
   );
 };
