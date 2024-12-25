@@ -12,21 +12,21 @@ import {
 const router = express.Router();
 
 // Create note
-router.post("/note/add", authenticateToken, addNote);
+router.post("/add", authenticateToken, addNote);
 
 // Update note
-router.put("/note/update/:noteId", authenticateToken, updateNote);
+router.put("/update/:noteId", authenticateToken, updateNote);
 
 // Update pin note
-router.put("/note/update_ispinned/:noteId", authenticateToken, updateIsPinned);
+router.put("/update_ispinned/:noteId", authenticateToken, updateIsPinned);
 
 // Get all note
 router.get("/", authenticateToken, getAllNotes);
 
-// Get all note
-router.get("/note/get/:noteId", authenticateToken, getNoteById);
+// Get note by id
+router.get("/get/:noteId", authenticateToken, getNoteById);
 
 // Delete note
-router.delete("/note/:noteId", authenticateToken, deleteNoteById);
+router.delete("/:noteId", authenticateToken, deleteNoteById);
 
 export default router;

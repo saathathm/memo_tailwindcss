@@ -10,8 +10,8 @@ import { getNotes } from "../../actions/NoteActions";
 import Loader from "../../components/Layout/Loader.jsx";
 
 const Home = () => {
-  const { user } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.authState);
   const { loading, notes } = useSelector((state) => state.noteState);
 
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -19,6 +19,14 @@ const Home = () => {
     type: "add",
     data: null,
   });
+
+  const handleEdit = (noteDetails) => {
+    setOpenAddEditModal({
+      isShown: true,
+      data: noteDetails,
+      type: "edit",
+    });
+  };
 
   useEffect(() => {
     dispatch(getNotes);
@@ -41,7 +49,7 @@ const Home = () => {
                   content={note.content}
                   tags={note.tags}
                   isPinned={note.isPinned}
-                  onEdit={() => {}}
+                  onEdit={() => handleEdit(note)}
                   onDelete={() => {}}
                   onPinNote={() => {}}
                 />

@@ -27,9 +27,62 @@ const noteSlice = createSlice({
         error: action.payload,
       };
     },
+
+    createNoteRequest(state, actions) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+
+    createNoteSuccess(state, actions) {
+      return {
+        loading: false,
+        note: actions.payload,
+      };
+    },
+
+    createNoteFail(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        error: actions.payload,
+      };
+    },
+
+    updateNoteRequest(state, actions) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+
+    updateNoteSuccess(state, actions) {
+      return {
+        loading: false,
+        note: actions.payload,
+      };
+    },
+
+    updateNoteFail(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        error: actions.payload,
+      };
+    },
   },
 });
 
-export const { getAllNotesRequest, getAllNotesSuccess, getAllNotesFail } =
-  noteSlice.actions;
+export const {
+  createNoteRequest,
+  createNoteSuccess,
+  createNoteFail,
+  updateNoteRequest,
+  updateNoteSuccess,
+  updateNoteFail,
+  getAllNotesRequest,
+  getAllNotesSuccess,
+  getAllNotesFail,
+} = noteSlice.actions;
 export default noteSlice.reducer;

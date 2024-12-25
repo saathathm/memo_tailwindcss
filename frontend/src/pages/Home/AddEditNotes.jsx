@@ -1,19 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TagInput from "../../components/Input/TagInput";
 import { MdClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotes } from "../../actions/NoteActions";
+import {
+  addNewNote as createNewNote,
+  editNote as updateNote,
+} from "../../actions/NoteActions";
 
 const AddEditNotes = ({ noteData, type, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tags, setTags] = useState([]);
-
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
+  const { error: noteError, note } = useSelector((state) => state.noteState);
 
   // Add New Note
-  const addNewNote = async () => {};
+  const addNewNote = async () => {
+    dispatch(createNewNote(title, content, tags));
+  };
 
   // Edit Note
-  const editNote = async () => {};
+  const editNote = async () => {
+    const noteId = noteData?._id;
+    dispatch(updateNote(title, content, tags, noteId));
+  };
+
+  useEffect(() => {
+    if (note) {
+      dispatch(getNotes);
+      onClose();
+    }
+
+    if (noteError) {
+      setError(noteError);
+    }
+  }, [note, noteError]);
 
   const handleAddNote = () => {
     if (!title) {
@@ -81,7 +104,7 @@ const AddEditNotes = ({ noteData, type, onClose }) => {
         className="btn-primary font-medium mt-5 p-3"
         onClick={handleAddNote}
       >
-        ADD
+        {type === "edit" ? "UPDATE" : "ADD"}
       </button>
     </div>
   );
