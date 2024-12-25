@@ -10,7 +10,7 @@
   }
 
   body {
-    background-color: #fdfeff;
+    background-color: #e7eef5;
     overflow-x: hidden;
   }
 }
@@ -33,7 +33,6 @@
   }
 }
 
-/* Loader */
 .loader {
   display: block;
   margin-left: auto;
@@ -51,7 +50,7 @@
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fa9c23;
-  border-color: #fa9c23 transparent;
+  border: 6px solid #23a4fa;
+  border-color: #23a4fa transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }

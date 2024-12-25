@@ -8,7 +8,7 @@ import {
   editNote as updateNote,
 } from "../../actions/NoteActions";
 
-const AddEditNotes = ({ noteData, type, onClose }) => {
+const AddEditNotes = ({ noteData, type, onClose, showToastMsg }) => {
   const [title, setTitle] = useState(noteData?.title || "");
   const [content, setContent] = useState(noteData?.content || "");
   const [tags, setTags] = useState(noteData?.tags || []);
@@ -29,6 +29,7 @@ const AddEditNotes = ({ noteData, type, onClose }) => {
 
   useEffect(() => {
     if (note) {
+      showToastMsg(`Note Successfully ${note}`)
       dispatch(getNotes);
       onClose();
     }

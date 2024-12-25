@@ -6,7 +6,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions/userActions";
-import ProtectedRoute from "./components/route/ProtectedRoute.jsx";
+import ProtectedRoute from "./components/Route/ProtectedRoute.jsx";
 
 const App = () => {
   const dispatch = useDispatch();

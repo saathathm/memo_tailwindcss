@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { getNotes } from "../../actions/NoteActions";
 
 import Loader from "../../components/Layout/Loader.jsx";
+import { Toast } from "../../components/ToastMessage/Toast.jsx";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,32 @@ const Home = () => {
     data: null,
   });
 
+  const [showToastMessage, setShowToastMessage] = useState({
+    isShown: false,
+    message: "",
+    type: "add",
+  });
+
   const handleEdit = (noteDetails) => {
     setOpenAddEditModal({
       isShown: true,
       data: noteDetails,
       type: "edit",
+    });
+  };
+
+  const showToastMsg = (message, type) => {
+    setShowToastMessage({
+      isShown: true,
+      message,
+      type,
+    });
+  };
+
+  const handleCloseToast = () => {
+    setShowToastMessage({
+      isShown: false,
+      message: "",
     });
   };
 
@@ -88,8 +110,16 @@ const Home = () => {
               data: null,
             });
           }}
+          showToastMsg={showToastMsg}
         />
       </Modal>
+
+      <Toast
+        isShown={showToastMessage.isShown}
+        message={showToastMessage.message}
+        type={showToastMessage.type}
+        onClose={handleCloseToast}
+      />
     </>
   );
 };

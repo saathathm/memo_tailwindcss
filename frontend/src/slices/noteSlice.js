@@ -38,7 +38,7 @@ const noteSlice = createSlice({
     createNoteSuccess(state, actions) {
       return {
         loading: false,
-        note: actions.payload,
+        note: "Added",
       };
     },
 
@@ -60,7 +60,7 @@ const noteSlice = createSlice({
     updateNoteSuccess(state, actions) {
       return {
         loading: false,
-        note: actions.payload,
+        note: "Updated",
       };
     },
 
