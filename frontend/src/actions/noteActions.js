@@ -2,10 +2,16 @@ import {
   createNoteFail,
   createNoteRequest,
   createNoteSuccess,
+  deleteNoteFail,
+  deleteNoteRequest,
+  deleteNoteSuccess,
   getAllNotesFail,
   getAllNotesRequest,
   getAllNotesSuccess,
   updateNoteFail,
+  updateNotePinFail,
+  updateNotePinRequest,
+  updateNotePinSuccess,
   updateNoteRequest,
   updateNoteSuccess,
 } from "../slices/noteSlice";
@@ -49,5 +55,27 @@ export const editNote = (title, content, tags, noteId) => async (dispatch) => {
     dispatch(updateNoteSuccess(data.note));
   } catch (error) {
     dispatch(updateNoteFail(error.message));
+  }
+};
+
+export const PinSelectedNote = (noteId) => async (dispatch) => {
+  try {
+    dispatch(updateNotePinRequest());
+    const { data } = await axiosInstance.put("/api/v1/note/update_ispinned/" + noteId);
+
+    dispatch(updateNotePinSuccess(data.note));
+  } catch (error) {
+    dispatch(updateNotePinFail(error.message));
+  }
+};
+
+export const deleteSelectedNote = (noteId) => async (dispatch) => {
+  try {
+    dispatch(deleteNoteRequest());
+    const { data } = await axiosInstance.delete("/api/v1/note/" + noteId);
+
+    dispatch(deleteNoteSuccess(data.id));
+  } catch (error) {
+    dispatch(deleteNoteFail(error.note));
   }
 };

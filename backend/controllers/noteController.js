@@ -125,6 +125,7 @@ export const deleteNoteById = async (req, res, next) => {
 
     res.status(200).json({
       error: false,
+      id: noteId,
       message: "Note deleted successfully",
     });
   } catch (error) {
@@ -153,7 +154,34 @@ export const updateIsPinned = async (req, res, next) => {
     res.status(200).json({
       error: false,
       note,
-      message: "Success",
+      message: note.isPinned ? "Pinned" : "Un Pinned",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchNotes = async (req, res, next) => {
+  try {
+    const { user } = req;
+    const { query } = req.query;
+
+    if (!query) {
+      return next(createError(400, "Search query is required"));
+    }
+
+    const matchingNotes = await Note.find({
+      userId: user._id,
+      $or: [
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+
+    res.status(200).json({
+      error: false,
+      notes: matchingNotes,
+      message: "Notes metched",
     });
   } catch (error) {
     next(error);

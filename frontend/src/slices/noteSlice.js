@@ -37,6 +37,7 @@ const noteSlice = createSlice({
 
     createNoteSuccess(state, actions) {
       return {
+        ...state,
         loading: false,
         note: "Added",
       };
@@ -59,12 +60,63 @@ const noteSlice = createSlice({
 
     updateNoteSuccess(state, actions) {
       return {
+        ...state,
         loading: false,
         note: "Updated",
       };
     },
 
     updateNoteFail(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        error: actions.payload,
+      };
+    },
+
+    deleteNoteRequest(state, actions) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+
+    deleteNoteSuccess(state, actions) {
+      const newNotes = state.notes.filter((note) => {
+        return note._id !== actions.payload;
+      });
+      return {
+        ...state,
+        loading: false,
+        note: "Deleted",
+        notes: newNotes,
+      };
+    },
+
+    deleteNoteFail(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        error: actions.payload,
+      };
+    },
+
+    updateNotePinRequest(state, actions) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+
+    updateNotePinSuccess(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        note: "Pin",
+      };
+    },
+
+    updateNotePinFail(state, actions) {
       return {
         ...state,
         loading: false,
@@ -81,6 +133,12 @@ export const {
   updateNoteRequest,
   updateNoteSuccess,
   updateNoteFail,
+  updateNotePinRequest,
+  updateNotePinSuccess,
+  updateNotePinFail,
+  deleteNoteRequest,
+  deleteNoteSuccess,
+  deleteNoteFail,
   getAllNotesRequest,
   getAllNotesSuccess,
   getAllNotesFail,

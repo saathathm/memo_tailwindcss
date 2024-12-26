@@ -5,15 +5,21 @@ import NoteCard from "../../components/Cards/NoteCard";
 import { MdAdd } from "react-icons/md";
 import AddEditNotes from "./AddEditNotes";
 import Modal from "react-modal";
-import { getNotes } from "../../actions/NoteActions";
+import {
+  deleteSelectedNote,
+  getNotes,
+  PinSelectedNote,
+} from "../../actions/NoteActions";
 
 import Loader from "../../components/Layout/Loader.jsx";
 import { Toast } from "../../components/ToastMessage/Toast.jsx";
+import { EmptyCard } from "../../components/Empty Card/EmptyCard.jsx";
+import noNoteImg from "../../assets/images/noNoteimg.svg";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authState);
-  const { loading, notes } = useSelector((state) => state.noteState);
+  const { loading, notes, note } = useSelector((state) => state.noteState);
 
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -50,9 +56,25 @@ const Home = () => {
     });
   };
 
+  const deleteNote = async (data) => {
+    const noteId = data?._id;
+    dispatch(deleteSelectedNote(noteId));
+  };
+
+  const pinNote = async (data) => {
+    const noteId = data?._id;
+    dispatch(PinSelectedNote(noteId));
+  };
+
   useEffect(() => {
-    dispatch(getNotes);
-  }, [dispatch, getNotes]);
+    if (note === "Deleted") {
+      showToastMsg("Note Successfully Deleted", "delete");
+    }
+
+    if (!notes || note === "Pin") {
+      dispatch(getNotes);
+    }
+  }, [note, notes]);
   return (
     <>
       <Navbar userInfo={user} />
@@ -61,22 +83,29 @@ const Home = () => {
         <Loader />
       ) : (
         <div className="container mx-auto">
-          <div className="grid grid-cols-3 gap-4 mt-8">
-            {notes &&
-              notes.map((note) => (
-                <NoteCard
-                  key={note._id}
-                  title={note.title}
-                  date={note.createdAt}
-                  content={note.content}
-                  tags={note.tags}
-                  isPinned={note.isPinned}
-                  onEdit={() => handleEdit(note)}
-                  onDelete={() => {}}
-                  onPinNote={() => {}}
-                />
-              ))}
-          </div>
+          {notes.length > 0 ? (
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              {notes &&
+                notes.map((note) => (
+                  <NoteCard
+                    key={note._id}
+                    title={note.title}
+                    date={note.createdAt}
+                    content={note.content}
+                    tags={note.tags}
+                    isPinned={note.isPinned}
+                    onEdit={() => handleEdit(note)}
+                    onDelete={() => deleteNote(note)}
+                    onPinNote={() => pinNote(note)}
+                  />
+                ))}
+            </div>
+          ) : (
+            <EmptyCard
+              imgSrc={noNoteImg}
+              message={`Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and reminders. Let's get started!`}
+            />
+          )}
         </div>
       )}
 

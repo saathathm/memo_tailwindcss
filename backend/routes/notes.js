@@ -5,6 +5,7 @@ import {
   deleteNoteById,
   getAllNotes,
   getNoteById,
+  searchNotes,
   updateIsPinned,
   updateNote,
 } from "../controllers/noteController.js";
@@ -28,5 +29,8 @@ router.get("/get/:noteId", authenticateToken, getNoteById);
 
 // Delete note
 router.delete("/:noteId", authenticateToken, deleteNoteById);
+
+// Search notes
+router.get("/search", authenticateToken, searchNotes);
 
 export default router;
