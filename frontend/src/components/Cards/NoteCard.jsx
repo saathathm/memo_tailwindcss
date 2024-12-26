@@ -13,7 +13,7 @@ const NoteCard = ({
   onPinNote,
 }) => {
   return (
-    <div className="border rounded p-4 bg-white hover:shadow-xl transition-all ease-in-out">
+    <div className="flex flex-col justify-between border rounded p-4 bg-white hover:shadow-xl transition-all ease-in-out">
       <div className="flex items-center justify-between">
         <div>
           <h6 className="tex-sm font-medium">{title}</h6>
@@ -28,14 +28,21 @@ const NoteCard = ({
         />
       </div>
 
-      <p className="text-xs text-slate-600 mt-2">{content?.slice(0, 60)}</p>
+      <p className="text-xs text-slate-600 mt-2">
+        {content.split("\n").map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
+      </p>
 
       <div className="flex items-center justify-between mt-2">
         <div className="text-xs text-slate-500">
           {tags.map((tag) => `#${tag} `)}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <MdCreate
             className="icon-btn hover:text-green-600"
             onClick={onEdit}

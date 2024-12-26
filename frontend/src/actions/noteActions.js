@@ -8,6 +8,9 @@ import {
   getAllNotesFail,
   getAllNotesRequest,
   getAllNotesSuccess,
+  searchNoteFail,
+  searchNoteRequest,
+  searchNoteSuccess,
   updateNoteFail,
   updateNotePinFail,
   updateNotePinRequest,
@@ -61,7 +64,9 @@ export const editNote = (title, content, tags, noteId) => async (dispatch) => {
 export const PinSelectedNote = (noteId) => async (dispatch) => {
   try {
     dispatch(updateNotePinRequest());
-    const { data } = await axiosInstance.put("/api/v1/note/update_ispinned/" + noteId);
+    const { data } = await axiosInstance.put(
+      "/api/v1/note/update_ispinned/" + noteId
+    );
 
     dispatch(updateNotePinSuccess(data.note));
   } catch (error) {
@@ -77,5 +82,18 @@ export const deleteSelectedNote = (noteId) => async (dispatch) => {
     dispatch(deleteNoteSuccess(data.id));
   } catch (error) {
     dispatch(deleteNoteFail(error.note));
+  }
+};
+
+export const searchQueryNote = (query) => async (dispatch) => {
+  try {
+    dispatch(searchNoteRequest());
+    const { data } = await axiosInstance.get(
+      "/api/v1/note/search?query=" + query
+    );
+
+    dispatch(searchNoteSuccess(data.notes));
+  } catch (error) {
+    dispatch(searchNoteFail(error.message));
   }
 };

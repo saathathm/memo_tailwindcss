@@ -9,17 +9,20 @@ import {
   deleteSelectedNote,
   getNotes,
   PinSelectedNote,
+  searchQueryNote,
 } from "../../actions/NoteActions";
 
 import Loader from "../../components/Layout/Loader.jsx";
 import { Toast } from "../../components/ToastMessage/Toast.jsx";
 import { EmptyCard } from "../../components/Empty Card/EmptyCard.jsx";
 import noNoteImg from "../../assets/images/noNoteimg.svg";
+import noData from "../../assets/images/noData.webp";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authState);
   const { loading, notes, note } = useSelector((state) => state.noteState);
+  const [isSearch, setIsSearch] = useState(false);
 
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -66,6 +69,11 @@ const Home = () => {
     dispatch(PinSelectedNote(noteId));
   };
 
+  const handleClearSearch = () => {
+    setIsSearch(false);
+    dispatch(getNotes);
+  };
+
   useEffect(() => {
     if (note === "Deleted") {
       showToastMsg("Note Successfully Deleted", "delete");
@@ -77,7 +85,12 @@ const Home = () => {
   }, [note, notes]);
   return (
     <>
-      <Navbar userInfo={user} />
+      <Navbar
+        userInfo={user}
+        searchQueryNote={searchQueryNote}
+        handleClearSearch={handleClearSearch}
+        setIsSearch={setIsSearch}
+      />
 
       {loading ? (
         <Loader />
@@ -102,15 +115,19 @@ const Home = () => {
             </div>
           ) : (
             <EmptyCard
-              imgSrc={noNoteImg}
-              message={`Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and reminders. Let's get started!`}
+              imgSrc={isSearch ? noData : noNoteImg}
+              message={
+                isSearch
+                  ? `Oops! No notes found matching your search.`
+                  : `Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and reminders. Let's get started!`
+              }
             />
           )}
         </div>
       )}
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 sticky bottom-10 left-full mr-10"
         onClick={() => {
           setOpenAddEditModal({ isShown: true, type: "add", data: null });
         }}

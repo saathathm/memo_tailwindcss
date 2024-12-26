@@ -123,6 +123,29 @@ const noteSlice = createSlice({
         error: actions.payload,
       };
     },
+
+    searchNoteRequest(state, actions) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+
+    searchNoteSuccess(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        notes: actions.payload,
+      };
+    },
+
+    searchNoteFail(state, actions) {
+      return {
+        ...state,
+        loading: false,
+        error: actions.payload,
+      };
+    },
   },
 });
 
@@ -133,6 +156,9 @@ export const {
   updateNoteRequest,
   updateNoteSuccess,
   updateNoteFail,
+  searchNoteRequest,
+  searchNoteSuccess,
+  searchNoteFail,
   updateNotePinRequest,
   updateNotePinSuccess,
   updateNotePinFail,

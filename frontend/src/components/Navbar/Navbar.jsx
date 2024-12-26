@@ -5,7 +5,12 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useDispatch } from "react-redux";
 import { clearGetUser } from "../../actions/userActions";
 
-const Navbar = ({ userInfo }) => {
+const Navbar = ({
+  userInfo,
+  searchQueryNote,
+  handleClearSearch,
+  setIsSearch,
+}) => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -16,14 +21,20 @@ const Navbar = ({ userInfo }) => {
     navigate("/login");
   };
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (searchQuery) {
+      setIsSearch(true);
+      dispatch(searchQueryNote(searchQuery));
+    }
+  };
 
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
   };
 
   return (
-    <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow">
+    <div className="sticky top-0 bg-white flex items-center justify-between px-6 py-2 drop-shadow">
       <h2 className="text-xl font-medium text-black py-2">Notes</h2>
 
       <SearchBar
