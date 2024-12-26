@@ -118,8 +118,8 @@ const Home = () => {
               imgSrc={isSearch ? noData : noNoteImg}
               message={
                 isSearch
-                  ? `Oops! No notes found matching your search.`
-                  : `Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and reminders. Let's get started!`
+                  ? `Oops! No memos found matching your search.`
+                  : `Start creating your first memo! Click the 'Add' button to jot down your thoughts, ideas, and reminders. Let's get started!`
               }
             />
           )}
