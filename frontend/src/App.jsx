@@ -9,12 +9,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./actions/userActions";
 import ProtectedRoute from "./components/Route/ProtectedRoute.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
+  
+  const { notAllow, isAuthenticated } = useSelector((state) => state.authState);
 
   useEffect(() => {
     dispatch(getUser);
@@ -28,9 +30,16 @@ const App = () => {
             path="/dashboard"
             exact
             element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+                notAllow ? (
+                        // <Loader />
+                        <div className="text-center mt-5">WaitPLease</div>
+                      ) : !isAuthenticated ? (
+                        <Navigate to={"/login"} />
+                      ) : (
+                        <Home/>
+                      )
+              // </ProtectedRoute>
             }
           />
           <Route path="/login" exact element={<Login />} />
