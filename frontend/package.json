@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+  "start": "serve -s dist",
     "dev": "vite",
-    "build": "echo 'Building...' && NODE_OPTIONS=--max-old-space-size=8192 vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
