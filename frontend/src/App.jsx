@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions/userActions";
-import ProtectedRoute from "./components/Route/ProtectedRoute";
+import ValidateRoute from "./components/Routes/ValidateRoute";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,9 +28,9 @@ const App = () => {
             path="/dashboard"
             exact
             element={
-              <ProtectedRoute>
+              <ValidateRoute>
                 <Home />
-              </ProtectedRoute>
+              </ValidateRoute>
             }
           />
           <Route path="/login" exact element={<Login />} />

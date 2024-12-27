@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import Loader from "../Layout/Loader.jsx";
 
-export default function ProtectedRoute({ children }) {
+export default function ValidateRoute({ children }) {
   const { notAllow, isAuthenticated } = useSelector((state) => state.authState);
 
   return (
