@@ -53,6 +53,5 @@ export const getUser = async (dispatch) => {
 };
 
 export const clearGetUser = async (dispatch) => {
-  console.log("first");
   dispatch(clearAuth());
 };

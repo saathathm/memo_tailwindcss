@@ -18,7 +18,7 @@ const Navbar = ({
   const onLogout = () => {
     dispatch(clearGetUser);
     localStorage.clear();
-    navigate("/login");
+    navigate("/memo_tailwindcss/login");
   };
 
   const handleSearch = () => {

@@ -47,7 +47,7 @@ const SignUp = () => {
 
     if (isAuthenticated) {
       localStorage.setItem("token", user.accessToken);
-      navigate("/dashboard");
+      navigate("/memo_tailwindcss/dashboard");
     }
   }, [isAuthenticated, navigate, authError]);
   return (
@@ -87,7 +87,7 @@ const SignUp = () => {
             </button>
             <p className="text-sm text-center mt-4">
               Already have an account ?{" "}
-              <Link to="/login" className="font-medium text-primary underline">
+              <Link to="/memo_tailwindcss/login" className="font-medium text-primary underline">
                 Login
               </Link>
             </p>

@@ -33,7 +33,7 @@ const Login = () => {
     }
     setError("");
 
-    //Login API
+    ///login API
     dispatch(login(email, password));
   };
 
@@ -44,7 +44,7 @@ const Login = () => {
 
     if (isAuthenticated) {
       localStorage.setItem("token", user.accessToken);
-      navigate("/dashboard");
+      navigate("/memo_tailwindcss/dashboard");
     }
   }, [isAuthenticated, navigate, authError]);
 
@@ -75,7 +75,7 @@ const Login = () => {
             </button>
             <p className="text-sm text-center mt-4">
               Not registered yet?{" "}
-              <Link to="/signup" className="font-medium text-primary underline">
+              <Link to="/memo_tailwindcss/signup" className="font-medium text-primary underline">
                 Create an Account
               </Link>
             </p>

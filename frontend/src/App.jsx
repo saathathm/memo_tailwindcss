@@ -23,9 +23,9 @@ const App = () => {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/memo_tailwindcss/dashboard" />} />
           <Route
-            path="/dashboard"
+            path="/memo_tailwindcss/dashboard"
             exact
             element={
               <ValidateRoute>
@@ -33,8 +33,8 @@ const App = () => {
               </ValidateRoute>
             }
           />
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/signup" exact element={<SignUp />} />
+          <Route path="/memo_tailwindcss/login" exact element={<Login />} />
+          <Route path="/memo_tailwindcss/signup" exact element={<SignUp />} />
         </Routes>
       </Router>
     </div>

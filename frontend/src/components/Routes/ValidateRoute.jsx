@@ -11,7 +11,7 @@ export default function ValidateRoute({ children }) {
       {notAllow ? (
         <Loader />
       ) : !isAuthenticated ? (
-        <Navigate to={"/login"} />
+        <Navigate to={"/memo_tailwindcss/login"} />
       ) : (
         children
       )}
