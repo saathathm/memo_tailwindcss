@@ -75,7 +75,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (note === "Deleted") {
+    if (note === "Deleted" && !isSearch) {
       showToastMsg("Note Successfully Deleted", "delete");
     }
 
@@ -126,14 +126,16 @@ const Home = () => {
         </div>
       )}
 
-      <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 sticky bottom-10 left-full mr-10"
-        onClick={() => {
-          setOpenAddEditModal({ isShown: true, type: "add", data: null });
-        }}
-      >
-        <MdAdd className="text-[32px] text-white" />
-      </button>
+      {!isSearch && (
+        <button
+          className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 sticky bottom-10 left-full mr-10"
+          onClick={() => {
+            setOpenAddEditModal({ isShown: true, type: "add", data: null });
+          }}
+        >
+          <MdAdd className="text-[32px] text-white" />
+        </button>
+      )}
 
       <Modal
         isOpen={openAddEditModal.isShown}
