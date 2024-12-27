@@ -3,7 +3,12 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions/userActions";
 import ProtectedRoute from "./components/Route/ProtectedRoute.jsx";
@@ -18,6 +23,7 @@ const App = () => {
     <div>
       <Router>
         <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route
             path="/dashboard"
             exact
