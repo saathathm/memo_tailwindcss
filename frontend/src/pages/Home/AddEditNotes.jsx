@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import TagInput from "../../components/Input/TagInput";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotes } from "../../actions/noteActions";
+import { getNotes } from "../../actions/NoteActions";
 import {
   addNewNote as createNewNote,
   editNote as updateNote,
-} from "../../actions/noteActions";
+} from "../../actions/NoteActions";
 
 const AddEditNotes = ({ noteData, type, onClose, showToastMsg }) => {
   const [title, setTitle] = useState(noteData?.title || "");
