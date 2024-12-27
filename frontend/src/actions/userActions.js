@@ -10,7 +10,7 @@ import {
   registerSuccess,
   registerFail,
 } from "../slices/authSlice";
-import axiosInstance from "../utils/axiosinstance";
+import axiosInstance from "../utils/axiosInstance";
 
 export const register = (fullName, email, password) => async (dispatch) => {
   try {
