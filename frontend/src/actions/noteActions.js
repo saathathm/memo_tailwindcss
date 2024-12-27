@@ -18,7 +18,7 @@ import {
   updateNoteRequest,
   updateNoteSuccess,
 } from "../slices/noteSlice";
-import axiosInstance from "../utils/axiosinstance";
+import axiosInstance from "../utils/axiosInstance";
 
 export const getNotes = async (dispatch) => {
   try {
