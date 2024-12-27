@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./actions/userActions";
-import ProtectedRoute from "./components/Route/ProtectedRoute.jsx";
+// import ProtectedRoute from "./components/Route/ProtectedRoute.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
