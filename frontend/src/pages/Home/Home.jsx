@@ -10,7 +10,7 @@ import {
   getNotes,
   PinSelectedNote,
   searchQueryNote,
-} from "../../actions/NoteActions";
+} from "../../actions/noteActions";
 
 import Loader from "../../components/Layout/Loader.jsx";
 import { Toast } from "../../components/ToastMessage/Toast.jsx";
