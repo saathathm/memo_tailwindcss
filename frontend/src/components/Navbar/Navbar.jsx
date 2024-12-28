@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import { useDispatch } from "react-redux";
 import { clearGetUser } from "../../actions/userActions";
+import { clearAllNotes } from "../../actions/noteActions";
 
 const Navbar = ({
   userInfo,
@@ -17,6 +18,7 @@ const Navbar = ({
 
   const onLogout = () => {
     dispatch(clearGetUser);
+    dispatch(clearAllNotes);
     localStorage.clear();
     navigate("/login");
   };

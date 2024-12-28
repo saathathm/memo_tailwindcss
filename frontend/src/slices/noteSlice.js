@@ -28,6 +28,14 @@ const noteSlice = createSlice({
       };
     },
 
+    clearAllOfNotes(state, action) {
+      return {
+        loading: false,
+        notes: false,
+        message: "Cleared",
+      };
+    },
+
     createNoteRequest(state, actions) {
       return {
         ...state,
@@ -168,5 +176,6 @@ export const {
   getAllNotesRequest,
   getAllNotesSuccess,
   getAllNotesFail,
+  clearAllOfNotes,
 } = noteSlice.actions;
 export default noteSlice.reducer;

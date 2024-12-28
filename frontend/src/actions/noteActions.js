@@ -1,4 +1,5 @@
 import {
+  clearAllOfNotes,
   createNoteFail,
   createNoteRequest,
   createNoteSuccess,
@@ -29,6 +30,10 @@ export const getNotes = async (dispatch) => {
     console.log(error.message);
     dispatch(getAllNotesFail(error.message));
   }
+};
+
+export const clearAllNotes = async (dispatch) => {
+  dispatch(clearAllOfNotes());
 };
 
 export const addNewNote = (title, content, tags) => async (dispatch) => {
